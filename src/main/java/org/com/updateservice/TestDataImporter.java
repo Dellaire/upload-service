@@ -1,7 +1,5 @@
 package org.com.updateservice;
 
-import java.time.ZonedDateTime;
-
 import org.com.updateservice.persistence.SampleApplicationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -23,6 +21,6 @@ public class TestDataImporter implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 
 		byte[] application = FileUtils.readContentFromClasspathFile(resourceLoader, "classpath:nodepad.zip");
-		this.sampleApplicationRepository.addVersion(ZonedDateTime.now(), application);
+		this.sampleApplicationRepository.addVersion("2022-07-15", application);
 	}
 }

@@ -1,7 +1,6 @@
 package org.com.updateservice.persistence;
 
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Optional;
 
 import org.com.updateservice.FileUtils;
@@ -19,10 +18,9 @@ public class FileSystemSampleApplicationRepository implements SampleApplicationR
 	private UpdateServiceProperties updateServiceProperties;
 
 	@Override
-	public Optional<SampleApplication> getNewerVersion(ZonedDateTime currentVersion) {
+	public Optional<SampleApplication> getVersion(String version) {
 
-		String fileName = this.zonedDateTimeToFileName(currentVersion);
-		byte[] applicationContent = FileUtils.readContentFromFile(fileName);
+		byte[] applicationContent = FileUtils.readContentFromFile(this.updateServiceProperties.getFileSystemTarget() + version);
 
 		if (applicationContent == null) {
 			return Optional.empty();
@@ -30,22 +28,24 @@ public class FileSystemSampleApplicationRepository implements SampleApplicationR
 
 		SampleApplication application = new SampleApplication();
 		application.setData(applicationContent);
-		application.setId(fileName);
+		application.setId(version);
 		Optional<SampleApplication> newerVersion = Optional.of(application);
 
 		return newerVersion;
 	}
 
 	@Override
-	public void addVersion(ZonedDateTime currentVersion, byte[] application) {
+	public void addVersion(String version, byte[] application) {
 
-		String fileName = this.zonedDateTimeToFileName(currentVersion);
-		FileUtils.writeContentToFile(fileName, application);
+		FileUtils.writeContentToFile(this.updateServiceProperties.getFileSystemTarget() + version, application);
 	}
 
-	private String zonedDateTimeToFileName(ZonedDateTime currentVersion) {
+	@Override
+	public String getLatestVersion() {
 
-		return this.updateServiceProperties.getFileSystemTarget()
-				+ DateTimeFormatter.ofPattern("yyyy-MM-dd").format(currentVersion) + ".zip";
+		List<String> versions = FileUtils.getFileNames(this.updateServiceProperties.getFileSystemTarget());
+		versions.sort((v1, v2) -> v1.compareTo(v2));
+
+		return versions.get(0);
 	}
 }

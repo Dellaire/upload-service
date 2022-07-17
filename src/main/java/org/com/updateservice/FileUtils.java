@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
@@ -57,5 +60,13 @@ public class FileUtils {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public static List<String> getFileNames(String folderName) {
+
+		File folder = new File(folderName);
+		File[] listOfFiles = folder.listFiles();
+
+		return Arrays.asList(listOfFiles).stream().map(file -> file.getName()).collect(Collectors.toList());
 	}
 }

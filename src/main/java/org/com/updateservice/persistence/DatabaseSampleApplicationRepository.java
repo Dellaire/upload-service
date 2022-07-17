@@ -1,6 +1,5 @@
 package org.com.updateservice.persistence;
 
-import java.time.ZonedDateTime;
 import java.util.Optional;
 
 import org.com.updateservice.data.SampleApplication;
@@ -12,12 +11,17 @@ import org.springframework.stereotype.Component;
 public class DatabaseSampleApplicationRepository implements SampleApplicationRepository {
 
 	@Override
-	public Optional<SampleApplication> getNewerVersion(ZonedDateTime currentVersion) {
+	public Optional<SampleApplication> getVersion(String version) {
+		return null;
+	}
+	
+	@Override
+	public String getLatestVersion() {
 		return null;
 	}
 
 	@Override
-	public void addVersion(ZonedDateTime currentVersion, byte[] application) {
+	public void addVersion(String version, byte[] application) {
 		
 	}
 }
