@@ -22,7 +22,7 @@ public class TestDataImporter implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		byte[] application = FileUtils.readContentFromFile(resourceLoader, "classpath:nodepad.zip");
+		byte[] application = FileUtils.readContentFromClasspathFile(resourceLoader, "classpath:nodepad.zip");
 		this.sampleApplicationRepository.addVersion(ZonedDateTime.now(), application);
 	}
 }

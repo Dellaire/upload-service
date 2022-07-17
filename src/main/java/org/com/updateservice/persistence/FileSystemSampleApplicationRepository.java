@@ -1,6 +1,5 @@
 package org.com.updateservice.persistence;
 
-import java.io.IOException;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
@@ -10,7 +9,6 @@ import org.com.updateservice.configuration.UpdateServiceProperties;
 import org.com.updateservice.data.SampleApplication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -19,28 +17,21 @@ public class FileSystemSampleApplicationRepository implements SampleApplicationR
 
 	@Autowired
 	private UpdateServiceProperties updateServiceProperties;
-	
-	@Autowired
-	private ResourceLoader resourceLoader;
 
 	@Override
 	public Optional<SampleApplication> getNewerVersion(ZonedDateTime currentVersion) {
 
 		String fileName = this.zonedDateTimeToFileName(currentVersion);
-		Optional<SampleApplication> newerVersion = null;
-		try {
-			
-			byte[] applicationContent = FileUtils.readContentFromFile(this.resourceLoader, fileName);
-			SampleApplication application = new SampleApplication();
-			application.setData(applicationContent);
-			application.setId(fileName);
-			newerVersion = Optional.of(application);
-			
-		} catch (IOException e) {
-			
-			e.printStackTrace();
-			newerVersion = Optional.empty();
+		byte[] applicationContent = FileUtils.readContentFromFile(fileName);
+
+		if (applicationContent == null) {
+			return Optional.empty();
 		}
+
+		SampleApplication application = new SampleApplication();
+		application.setData(applicationContent);
+		application.setId(fileName);
+		Optional<SampleApplication> newerVersion = Optional.of(application);
 
 		return newerVersion;
 	}
