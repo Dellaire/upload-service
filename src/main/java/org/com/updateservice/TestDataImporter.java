@@ -11,16 +11,16 @@ import org.springframework.stereotype.Component;
 @ConditionalOnProperty(name = "importTestData", havingValue = "true")
 public class TestDataImporter implements CommandLineRunner {
 
-	@Autowired
-	private SampleApplicationRepository sampleApplicationRepository;
+    @Autowired
+    private SampleApplicationRepository sampleApplicationRepository;
 
-	@Autowired
-	private ResourceLoader resourceLoader;
+    @Autowired
+    private ResourceLoader resourceLoader;
 
-	@Override
-	public void run(String... args) throws Exception {
+    @Override
+    public void run(String... args) throws Exception {
 
-		byte[] application = FileUtils.readContentFromClasspathFile(resourceLoader, "classpath:nodepad.zip");
-		this.sampleApplicationRepository.addVersion("2022-07-15", application);
-	}
+        byte[] application = FileUtils.readContentFromClasspathFile(resourceLoader, "classpath:nodepad.zip");
+        this.sampleApplicationRepository.addVersion("2022-07-15", application);
+    }
 }

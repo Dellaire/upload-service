@@ -6,24 +6,24 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document("Application")
 public class SampleApplication {
 
-	@Id
-	private String id;
-	
-	private byte[] data;
+    @Id
+    private String id;
 
-	public String getId() {
-		return id;
-	}
+    private byte[] data;
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public byte[] getData() {
-		return data;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public void setData(byte[] data) {
-		this.data = data;
-	}
+    public byte[] getData() {
+        return data;
+    }
+
+    public void setData(byte[] data) {
+        this.data = data;
+    }
 }

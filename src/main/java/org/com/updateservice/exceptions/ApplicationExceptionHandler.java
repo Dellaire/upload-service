@@ -8,15 +8,15 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler {
 
-	@ExceptionHandler(VersionNotFoundException.class)
-	public ResponseEntity<Object> handleException(VersionNotFoundException exception) {
-		
-		return ResponseEntity.notFound().build();
-	}
-	
-	@ExceptionHandler(Exception.class)
-	public ResponseEntity<Object> handleException(Exception exception) {
-		
-		return ResponseEntity.internalServerError().build();
-	}
+    @ExceptionHandler(VersionNotFoundException.class)
+    public ResponseEntity<Object> handleException(VersionNotFoundException exception) {
+
+        return ResponseEntity.notFound().build();
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<Object> handleException(Exception exception) {
+
+        return ResponseEntity.internalServerError().build();
+    }
 }

@@ -7,13 +7,13 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties
 public class UpdateServiceProperties {
 
-	private String fileSystemTarget;
+    private String fileSystemTarget;
 
-	public String getFileSystemTarget() {
-		return fileSystemTarget;
-	}
+    public String getFileSystemTarget() {
+        return fileSystemTarget;
+    }
 
-	public void setFileSystemTarget(String fileSystemTarget) {
-		this.fileSystemTarget = fileSystemTarget;
-	}
+    public void setFileSystemTarget(String fileSystemTarget) {
+        this.fileSystemTarget = fileSystemTarget;
+    }
 }
