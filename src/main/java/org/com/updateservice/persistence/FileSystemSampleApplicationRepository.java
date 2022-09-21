@@ -8,9 +8,9 @@ import org.com.updateservice.configuration.UpdateServiceProperties;
 import org.com.updateservice.data.SampleApplication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-@Component
+@Repository
 @ConditionalOnProperty(name = "storage", havingValue = "fileSystem")
 public class FileSystemSampleApplicationRepository implements SampleApplicationRepository {
 

@@ -18,7 +18,7 @@ public class SampleApplicationController {
 	@Autowired
 	private SampleApplicationVersionProcessor sampleApplicationVersionProcessor;
 
-	@GetMapping("/{version}")
+	@GetMapping("/{version:\\d{4}\\-\\d{2}\\-\\d{2}}")
 	public ResponseEntity<byte[]> getVersion(@PathVariable("version") String version) {
 
 		Optional<SampleApplication> newerSampleApplication = this.sampleApplicationVersionProcessor.getVersion(version);
@@ -27,7 +27,7 @@ public class SampleApplicationController {
 			return ResponseEntity.ok(newerSampleApplication.get().getData());
 		}
 
-		return ResponseEntity.noContent().build();
+		return ResponseEntity.notFound().build();
 	}
 
 	@GetMapping("/latest")
